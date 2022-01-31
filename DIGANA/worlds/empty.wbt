@@ -1,0 +1,374 @@
+#VRML_SIM R2021b utf8
+WorldInfo {
+  info [
+    "Simulation of the KUKA youBot robot."
+    "This model includes an accurate and fast simulation of the Meccanum wheels."
+    "The robot can be equiped with various sensors (including the Microsoft Kinect) and configured with zero, one or two arms."
+  ]
+  title "KUKA youBot"
+  basicTimeStep 16
+  coordinateSystem "NUE"
+  contactProperties [
+    ContactProperties {
+      material1 "InteriorWheelMat"
+      coulombFriction [
+        1.8, 0, 0.2
+      ]
+      frictionRotation -0.9648 0
+      bounce 0
+      forceDependentSlip [
+        10, 0
+      ]
+    }
+    ContactProperties {
+      material1 "ExteriorWheelMat"
+      coulombFriction [
+        1.8, 0, 0.2
+      ]
+      frictionRotation 0.9648 0
+      bounce 0
+      forceDependentSlip [
+        10, 0
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.9999838738351705 -0.004520108907596618 0.0034381223173829993 1.2006220736554507
+  position 0.011142493577749246 12.39317598749426 4.418851037962697
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 10 6
+  floorTileSize 7 6
+  floorAppearance PBRAppearance {
+    baseColorMap ImageTexture {
+      url [
+        "textures/floor.png"
+      ]
+      repeatS FALSE
+      repeatT FALSE
+    }
+    roughness 0.2
+    metalness 0
+  }
+  wallHeight 1
+}
+Solid {
+  translation 0.15089 0.21 -2.90639
+  rotation 0 1 0 0.264396
+  children [
+    DEF TOTEM Robot {
+      translation 0 0.1 0
+      children [
+        Camera {
+          translation 0 0.21 0
+          rotation 0 -1 0 -2.3561903061004252
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0 0 0.498039
+                roughness 1
+                metalness 0
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+            }
+          ]
+          name "camera_totem_1"
+          fieldOfView 2
+          width 360
+          height 240
+          recognition Recognition {
+            segmentation TRUE
+          }
+        }
+      ]
+      controller "totem_controller_py"
+      customData "0"
+      supervisor TRUE
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 0
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.1 0.5 0.1
+      }
+    }
+  ]
+  name "totem_1"
+}
+Solid {
+  translation 3.09564 0.21 -0.935002
+  rotation 0 -1 0 -0.002595307179586115
+  children [
+    Robot {
+      translation 0 0.1 0
+      children [
+        Camera {
+          translation 0 0.21 0
+          rotation 0 1 0 3.14159
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0 0 0.498039
+                roughness 1
+                metalness 0
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+            }
+          ]
+          name "camera_totem_2"
+          fieldOfView 1
+          width 360
+          height 240
+          recognition Recognition {
+            segmentation TRUE
+          }
+        }
+      ]
+      controller "termoscanner"
+      supervisor TRUE
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 0
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.1 0.5 0.1
+      }
+    }
+  ]
+  name "totem_2"
+}
+Youbot {
+  hidden translation_12 0.228 -0.158 -0.055
+  hidden translation_13 0.228 0.158 -0.055
+  hidden translation_14 -0.228 -0.158 -0.055
+  hidden translation_15 -0.228 0.158 -0.055
+  translation -1.65614 0.093736 -2.03513
+  rotation 0.5726549192287473 0.5791299183154682 0.5802369181593291 -2.099445307179586
+  controllerArgs [
+    ""
+  ]
+  supervisor TRUE
+  bodySlot [
+    DEF CHECK Solid {
+      name "solid(1)"
+      description "false"
+    }
+    DEF CONTAINER Solid {
+      translation 0 2.20392e-07 0.11
+      rotation 1 0 0 1.5708
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/cross.jpg"
+              ]
+            }
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.2
+            radius 0.09
+          }
+        }
+      ]
+      description "982"
+    }
+    Compass {
+    }
+    GPS {
+    }
+    DistanceSensor {
+      translation 0.272661 -0.0580339 0
+      rotation 0 0 -1 0.261795
+      name "D_S_right"
+    }
+    DistanceSensor {
+      translation 0.0730437 -0.155301 -0.05
+      rotation 0 0 1 -1.5717953071795865
+      name "D_S_right_side"
+    }
+    DistanceSensor {
+      translation -0.246996 -0.194981 -0.05
+      rotation 0 0 -0.9999999999999999 1.5717953071795867
+      name "D_S_right_side2"
+    }
+    DistanceSensor {
+      translation 0.270785 0.058434 0
+      rotation 0 0 1 0.261794
+      name "D_S_left"
+    }
+    DistanceSensor {
+      translation 0.0817 0.154936 -0.05
+      rotation 0 0 1 1.57
+      name "D_S_left_side"
+    }
+    DistanceSensor {
+      translation -0.248268 0.1952 -0.05
+      rotation 0 0 1 1.57
+      name "D_S_left_side2"
+    }
+    Camera {
+      translation 0.33 3.10852e-08 0.1
+      rotation -0.5773509358554485 0.5773509358554485 0.5773489358556708 -2.094395307179586
+      fieldOfView 1
+      width 640
+      height 640
+      recognition Recognition {
+      }
+    }
+  ]
+  numberOfArms 0
+}
+DEF charging_base Robot {
+  translation -2.57506 0 -2.08632
+  rotation 0 1 0 -3.14159
+  children [
+    GPS {
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        metalness 0
+      }
+      geometry Box {
+        size 0.1 0.0005 0.1
+      }
+    }
+  ]
+  name "container_position"
+  boundingObject Box {
+    size 0.1 0.0005 0.1
+  }
+  controller "container_controller"
+  controllerArgs [
+    ""
+  ]
+}
+DEF first_base Robot {
+  translation -2.56506 0 2.24368
+  rotation 0 1 0 -3.14159
+  children [
+    GPS {
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        metalness 0
+      }
+      geometry Box {
+        size 0.1 0.0005 0.1
+      }
+    }
+  ]
+  name "container_position(1)"
+  boundingObject Box {
+    size 0.1 0.0005 0.1
+  }
+  controller "container_controller"
+  controllerArgs [
+    ""
+  ]
+}
+DEF second_base Robot {
+  translation 0.33494 0 2.24368
+  rotation 0 1 0 -3.14159
+  children [
+    GPS {
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        metalness 0
+      }
+      geometry Box {
+        size 0.1 0.0005 0.1
+      }
+    }
+  ]
+  name "container_position(2)"
+  boundingObject Box {
+    size 0.1 0.0005 0.1
+  }
+  controller "container_controller"
+  controllerArgs [
+    ""
+  ]
+}
+DEF third_base Robot {
+  translation 0.434938 0 -2.18632
+  rotation 0 1 0 -3.14159
+  children [
+    GPS {
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        metalness 0
+      }
+      geometry Box {
+        size 0.1 0.0005 0.1
+      }
+    }
+  ]
+  name "container_position(3)"
+  boundingObject Box {
+    size 0.1 0.0005 0.1
+  }
+  controller "container_controller"
+  controllerArgs [
+    ""
+  ]
+}
+DEF ENTERDOOR Door {
+  translation 1.39 0 0.51
+  rotation 0 1 0 -1.5707953071795862
+}
+DEF EXITDOOR Door {
+  translation -3.37 0 0.51
+  rotation 0 1 0 -1.5707953071795862
+  name "door(1)"
+  model ""
+  recognitionColors []
+}
+Wall {
+  translation 1.45 1.2 3.24955e-06
+  rotation 0.5773499358549823 -0.5773519358547601 0.5773489358550934 -2.094395307179586
+  size 2.4 3 0.2
+}
+Wall {
+  translation -3.37 1.2 1.49524e-05
+  rotation 0.5773499358549823 -0.5773519358547601 0.5773489358550934 -2.094395307179586
+  name "wall(2)"
+  size 2.4 3 0.2
+}
+Wall {
+  translation 1.45 1.19999 3
+  rotation 0.5773499358549823 -0.5773519358547601 0.5773489358550934 -2.094395307179586
+  name "wall(1)"
+  size 2.4 2 0.2
+}
+Wall {
+  translation -3.35 1.19999 3
+  rotation 0.5773499358549823 -0.5773519358547601 0.5773489358550934 -2.094395307179586
+  name "wall(3)"
+  size 2.4 2 0.2
+}
